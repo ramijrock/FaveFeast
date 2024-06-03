@@ -12,6 +12,7 @@ import {WelcomeCard, Separator} from '../components';
 import {Display} from '../utils';
 
 const WelcomeScreen = () => {
+  //just for check
   const [welcomeIndex, setWelcomeIndex] = useState(0);
   const welcomeIndexRef = useRef();
   const onViewRef = useRef(({changed}) => {
