@@ -10,9 +10,10 @@ import {
 import {Colors, Fonts, General} from '../constants';
 import {WelcomeCard, Separator} from '../components';
 import {Display} from '../utils';
+import {useNavigation} from '@react-navigation/native';
 
 const WelcomeScreen = () => {
-  //just for check
+  const navigation = useNavigation();
   const [welcomeIndex, setWelcomeIndex] = useState(0);
   const welcomeIndexRef = useRef();
   const onViewRef = useRef(({changed}) => {
@@ -51,20 +52,29 @@ const WelcomeScreen = () => {
       <Separator height={Display.setHeight(8)} />
       <Pagination index={welcomeIndex} />
       <Separator height={Display.setHeight(8)} />
-      <View style={styles.buttonContainer}>
+      {welcomeIndex == 2 ? (
         <TouchableOpacity
+          style={styles.getStartedButton}
           activeOpacity={0.8}
-          style={{paddingLeft: 11}}
-          onPress={() => welcomeIndexRef.current.scrollToEnd()}>
-          <Text style={styles.buttonText}>SKIP</Text>
+          onPress={() => navigation.navigate('SignIn')}>
+          <Text style={styles.getStartedButtonText}>Get Started</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          activeOpacity={0.8}
-          onPress={pageScroll}>
-          <Text style={styles.buttonText}>NEXT</Text>
-        </TouchableOpacity>
-      </View>
+      ) : (
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{paddingLeft: 11}}
+            onPress={() => welcomeIndexRef.current.scrollToEnd()}>
+            <Text style={styles.buttonText}>SKIP</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.8}
+            onPress={pageScroll}>
+            <Text style={styles.buttonText}>NEXT</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
@@ -124,6 +134,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: Fonts.POPPINS_BOLD,
     lineHeight: 16 * 1.4,
+  },
+  getStartedButton: {
+    backgroundColor: Colors.DEFAULT_GREEN,
+    paddingVertical: 8,
+    paddingHorizontal: 40,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2,
+  },
+  getStartedButtonText: {
+    fontSize: 20,
+    color: Colors.DEFAULT_WHITE,
+    lineHeight: 20 * 1.4,
+    fontFamily: Fonts.POPPINS_MEDIUM,
   },
 });
 
