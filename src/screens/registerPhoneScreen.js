@@ -27,6 +27,7 @@ const RegisterPhoneScreen = () => {
   const [inputsContainerY, setInputsContainerY] = useState(0);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [dorpdownLayout, setDropdownLayout] = useState({});
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const closeDropDown = (pageX, pageY) => {
     if (isDropDownOpen) {
@@ -92,10 +93,14 @@ const RegisterPhoneScreen = () => {
             keyboardType="number-pad"
             style={styles.inputText}
             onFocus={() => setIsDropDownOpen(false)}
+            onChangeText={text => setPhoneNumber(selectedCountry.code + text)}
           />
         </View>
       </View>
-      <TouchableOpacity style={styles.signInButton} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.signInButton}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('VerificationScreen', {phoneNumber})}>
         <Text style={styles.signInButtonText}>Continue</Text>
       </TouchableOpacity>
       {isDropDownOpen && (
